@@ -3,7 +3,7 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { first, last, next, prev, numberpage } from "../features/pageSlice";
-import { Card, Button, Pagination } from 'react-bootstrap'
+import { Card, Button, Pagination, Container } from 'react-bootstrap'
 
 export default function MoviePage() {
     const [movie, setMovie] = useState([])
@@ -30,7 +30,14 @@ export default function MoviePage() {
 
     return (
         <>
-            <div className="d-flex justify-content-center flex-wrap gap-2 mt-3">
+            <Pagination size='md' className="justify-content-center mt-3">
+                <Pagination.First onClick={() => dispatch(first())} />
+                <Pagination.Prev onClick={() => dispatch(prev())} />
+                {items}
+                <Pagination.Next onClick={() => dispatch(next(movie?.total_pages))} />
+                <Pagination.Last onClick={() => dispatch(last(movie?.total_pages))} />
+            </Pagination>
+            <Container className="d-flex justify-content-center flex-wrap gap-2 mt-3">
                 {movie.results?.map((data, i) => (
                     <Card key={i} className="border-0" onClick={() => navigate(`/detail/${data.id}`)} style={{ width: '240px' }}>
                         <Card.Img variant='' src={`https://image.tmdb.org/t/p/w500/` + data.poster_path} alt={`https://image.tmdb.org/t/p/w500/` + data.poster_path} />
@@ -40,7 +47,7 @@ export default function MoviePage() {
                         </div>
                     </Card>
                 ))}
-            </div>
+            </Container>
             <Pagination size='md' className="justify-content-center mt-3">
                 <Pagination.First onClick={() => dispatch(first())} />
                 <Pagination.Prev onClick={() => dispatch(prev())} />
