@@ -1,6 +1,6 @@
 # Qoin-Technical-test
 
-### this project boostrapped with React + Vite
+### this project was boostrapped with React + Vite
 
 In the project directory, you need to instal node modules:
 
